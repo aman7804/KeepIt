@@ -2,6 +2,20 @@
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import "./App.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Login from "./components/Login";
+import Secure from "./components/Secure";
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/secure",
+    element: <Secure />,
+  },
+]);
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -29,7 +43,9 @@ function App() {
     //     Click on the Vite and React logos to learn more
     //   </p>
     // </>
-    <></>
+    <>
+      <RouterProvider router={router} />
+    </>
   );
 }
 
