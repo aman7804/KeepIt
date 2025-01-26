@@ -7,7 +7,7 @@ export default function Login() {
   const [isLoggedin, setIsLoggedin] = useState(false);
 
   const handleClick = () => {
-    const callbackUrl = `http://localhost:5173`;
+    const callbackUrl = `http://localhost:5173/auth`;
     const googleClientId =
       "787628812441-7b6v4lps3ubenri68k0jeuen9q5vac92.apps.googleusercontent.com";
     const targetUrl = `https://accounts.google.com/o/oauth2/auth?redirect_uri=${encodeURIComponent(
@@ -28,9 +28,7 @@ export default function Login() {
   }, []);
 
   useEffect(() => {
-    if (isLoggedin) {
-      navigate("/secure");
-    }
+    if (isLoggedin) navigate("/");
   }, [isLoggedin, navigate]);
 
   return (
