@@ -1,8 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-
+import { ISlotInfo } from "./Home";
 const style = {
   position: "absolute",
   top: "50%",
@@ -15,28 +14,32 @@ const style = {
   p: 4,
 };
 
-export default function NoteModel() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [note, setNote] = React.useState<string>("");
+interface INoteModel {
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  handleNoteClosing: () => void;
+  noteOpen: boolean;
+  slotInfo: ISlotInfo | null;
+}
 
-  const handleChange = (event: React.ChangeEvent<HTMLDivElement>) => {
-    setNote(event.target.innerText);
-  };
+export default function NoteModel(props: INoteModel) {
+  const { handleNoteClosing, noteOpen, slotInfo } = props;
+
+  // const handleChange = (event: React.ChangeEvent<HTMLDivElement>) => {
+  //   setNote(event.target.innerText);
+  // };
+
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={noteOpen}
+        onClose={handleNoteClosing}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <div
             contentEditable
-            onInput={handleChange}
+            // onInput={handleChange}
             role="textbox"
             aria-placeholder="Start typing your note..."
             style={{
@@ -53,7 +56,7 @@ export default function NoteModel() {
               cursor: "text",
             }}
           >
-            {note}
+            THIS IS NOTE of date: {slotInfo?.start.toString()}
           </div>
         </Box>
       </Modal>
