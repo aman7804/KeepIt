@@ -2,6 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { ISlotInfo } from "./Home";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -11,11 +12,11 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 2, // Padding inside the box
+  overflow: "hidden", // Hide scrollbars
 };
 
 interface INoteModel {
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   handleNoteClosing: () => void;
   noteOpen: boolean;
   slotInfo: ISlotInfo | null;
@@ -23,43 +24,38 @@ interface INoteModel {
 
 export default function NoteModel(props: INoteModel) {
   const { handleNoteClosing, noteOpen, slotInfo } = props;
+  const [note, setNote] = React.useState("");
 
-  // const handleChange = (event: React.ChangeEvent<HTMLDivElement>) => {
-  //   setNote(event.target.innerText);
-  // };
+  const handleNoteChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNote(event.target.value);
+  };
 
   return (
-    <div>
-      <Modal
-        open={noteOpen}
-        onClose={handleNoteClosing}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <div
-            contentEditable
-            // onInput={handleChange}
-            role="textbox"
-            aria-placeholder="Start typing your note..."
-            style={{
-              width: "100%",
-              minHeight: "100px", // Minimum height
-              border: "none",
-              outline: "none",
-              fontSize: "16px",
-              padding: "10px",
-              whiteSpace: "pre-wrap", // Allow text to wrap
-              wordWrap: "break-word", // Word wrapping
-              overflow: "hidden", // No scrollbars
-              backgroundColor: "transparent", // Optional: Background
-              cursor: "text",
-            }}
-          >
-            THIS IS NOTE of date: {slotInfo?.start.toString()}
-          </div>
-        </Box>
-      </Modal>
-    </div>
+    <Modal
+      open={noteOpen}
+      onClose={handleNoteClosing}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <textarea
+          value={note}
+          onChange={handleNoteChange}
+          placeholder="Start typing your note..."
+          style={{
+            width: "100%",
+            height: "150px",
+            border: "none",
+            outline: "none",
+            resize: "none", // Prevent resizing
+            overflow: "hidden", // Hide scrollbars
+            padding: "8px",
+            fontSize: "16px",
+            lineHeight: "1.5",
+            backgroundColor: "transparent",
+          }}
+        />
+      </Box>
+    </Modal>
   );
 }
