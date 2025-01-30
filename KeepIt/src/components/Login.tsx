@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
+import { loginRequest, loginSuccess } from "../store/auth/actions";
+import { useDispatchAction } from "../customHooks/useDispatchAction";
 
 export default function Login() {
+  const dispatchAction = useDispatchAction();
+
   const navigate = useNavigate();
   const [isLoggedin, setIsLoggedin] = useState(false);
 
   const handleClick = () => {
+    dispatchAction(loginRequest);
     const callbackUrl = `http://localhost:5173/auth`;
     const googleClientId =
       "787628812441-7b6v4lps3ubenri68k0jeuen9q5vac92.apps.googleusercontent.com";
@@ -22,7 +26,8 @@ export default function Login() {
 
     if (isMatch) {
       const accessToken = isMatch[1];
-      Cookies.set("access_token", accessToken);
+      // Cookies.set("access_token", accessToken);
+      dispatchAction(() => loginSuccess({ accessToken }));
       setIsLoggedin(true);
     }
   }, []);
