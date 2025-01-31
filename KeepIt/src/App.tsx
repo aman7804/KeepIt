@@ -23,7 +23,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-export type ActionMethod<T = AuthActionTypes, P = undefined> = {
+export type ActionMethod<T extends string = string, P = undefined> = {
   type: T;
   payload?: P;
 };

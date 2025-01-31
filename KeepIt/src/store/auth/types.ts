@@ -6,14 +6,9 @@ export interface AuthState {
   error: string | null;
 }
 
-export interface LoginResponse {
+export interface LoginSuccessPayload {
   accessToken?: string;
 }
-
-// export interface FailureResponse {
-//   message: string;
-//   data?: any;
-// }
 
 export interface LoginRequest {
   type: typeof LOGIN_REQUEST;
@@ -21,7 +16,7 @@ export interface LoginRequest {
 }
 export type LoginSuccess = {
   type: typeof LOGIN_SUCCESS;
-  payload: LoginResponse;
+  payload: LoginSuccessPayload;
 };
 export type LoginFailure = {
   type: typeof LOGIN_FAILURE;

@@ -10,8 +10,8 @@ export const loginRequest = (): ActionMethod<typeof LOGIN_REQUEST> => ({
   type: LOGIN_REQUEST
 });
 export const loginSuccess = (
-  payload: TYPES.LoginResponse
-): ActionMethod<typeof LOGIN_SUCCESS, TYPES.LoginResponse> => ({
+  payload: TYPES.LoginSuccessPayload
+): ActionMethod<typeof LOGIN_SUCCESS, TYPES.LoginSuccessPayload> => ({
   type: LOGIN_SUCCESS,
   payload,
 });
